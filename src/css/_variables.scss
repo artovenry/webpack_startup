@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+
+$bootstrap-sass-asset-helper: false;
+$fa-sass-asset-helper: false;
+$icon-font-path: "/assets/";
+$fa-font-path: "/assets/";
+
+$brand-primary: #9C1F1F;
+$font-family-base: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+
+$text-color: $brand-primary;
+$body-bg: #CCC;
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";

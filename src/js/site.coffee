@@ -1,0 +1,2 @@
+$ ->
+  new(require "./container")
