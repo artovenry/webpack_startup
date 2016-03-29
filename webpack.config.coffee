@@ -13,6 +13,8 @@ class bootstrap
   ]
 
 webpack= require "webpack"
+ExtractTextPlugin= require "extract-text-webpack-plugin"
+
 module.exports= 
   entry: ["./src/js/site.coffee"].concat [],
     fontawesome::entries,
@@ -26,8 +28,27 @@ module.exports=
     loaders:[
       {test: /\.coffee$/, loader: "coffee"}
       {test: /\.jade$/, loader: "jade"}
-      {test: /\.scss$/, loader: "file?name=[name].css!extract!css?sourceMap!sass?sourceMap"}
+      {
+        test: /\.scss$/
+        loader:  ExtractTextPlugin.extract "style-loader", "css-loader?sourceMap!postcss-loader!sass-loader?sourceMap" 
+          #"css"
+          #"postcss-loader"
+          #"sass"
+        #]
+        #loaders:[
+        #  "file?name=[name].css"
+        #  "extract"
+        #  "css?sourceMap" #FIXME sourceMap doesnt work
+        #  "postcss-loader"
+        #  "sass?sourceMap" #FIXME sourceMap doesnt work
+        #]
+      }
       fontawesome::loader
+    ]
+  postcss: ->
+    [
+      (require "autoprefixer")
+        browsers: ["> 5% in JP"]
     ]
 
   resolve:
@@ -38,6 +59,7 @@ module.exports=
       Backbone: "backbone"
       $: "jquery"
       _: "underscore"
+    new ExtractTextPlugin "site.css"
   ]
 
   devtool: "#source-map"

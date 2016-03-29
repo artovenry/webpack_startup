@@ -1,8 +1,12 @@
-.panel.panel-primary
-  .panel-heading
-    .panel-title panelOne
-  .panel-body
-    .pull-right
-      img(src=require("file!../img/sample.png"))
-    button.btn.btn-primary(data-toggle="modal" data-target=".modal")
-      .fa.fa-trash
+extends panel
+block body
+  .pull-right
+    img(src=require("file!../img/sample.png"))
+  button.btn.btn-primary(data-toggle="modal" data-target=".modal")
+    .fa.fa-trash
+  ul
+    li animation
+    li sprite
+    li image
+    li retina
+    

@@ -1,5 +1,5 @@
 module.exports= Backbone.View.extend
-  template: require("./panelOne.jade")
+  template: require("./panelTwo.jade")
   initialize: ->
     @setElement @template
-      title: "panelOne"
+      title: "panelTwo"

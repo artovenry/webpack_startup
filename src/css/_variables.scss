@@ -7,6 +7,9 @@ $icon-font-path: "/assets/";
 $fa-font-path: "/assets/";
 
 $brand-primary: #9C1F1F;
+$brand-primary-1: lighten($brand-primary, 30%);
+$brand-secondary: #9C1F1F;
+
 $font-family-base: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
 
 $text-color: $brand-primary;
