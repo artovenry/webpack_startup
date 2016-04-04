@@ -1,73 +1,51 @@
-class fontawesome
-  exts: "eot svg ttf woff woff2".split(" ")
-  entries:
-    ("font-awesome/fonts/fontawesome-webfont.#{ext}" for ext in fontawesome::exts)
-  loader:
-    test: new RegExp "\.(#{fontawesome::exts.join("|")})$"
-    loader:"file?name=[name].[ext]"
-
-class bootstrap
-  path: "bootstrap-sass/assets/javascripts/bootstrap"
-  entries:[
-    "imports?jQuery=jquery!#{bootstrap::path}"
-  ]
-
 webpack= require "webpack"
-ExtractTextPlugin= require "extract-text-webpack-plugin"
+autoprefixer= require "autoprefixer"
 
-module.exports= 
-  entry: ["./src/js/site.coffee"].concat [],
-    fontawesome::entries,
-    bootstrap::entries,
-    ["./src/css/site.scss"]
+module.exports=
+  cache: off
+  entry:[
+    "./src/js/site.coffee"
+    "./src/css/site.scss"
+    "imports?jQuery=jquery!bootstrap-sass/assets/javascripts/bootstrap"
+  ]
   output:
-    path: "./builds"
-    filename: "site.js"
-    publicPath: "/assets/"
+    path: __dirname + "/builds"
+    filename: "bundle.js"
+    publicPath: "http://localhost:30000/assets/"
   module:
     loaders:[
       {test: /\.coffee$/, loader: "coffee"}
+      {test: /\.scss$/, loader: "style!css?sourceMap!postcss!sass?sourceMap"}
       {test: /\.jade$/, loader: "jade"}
+      {test: /\.png$/, loader: "url?mimetype=image/png&limit=10000"}
       {
-        test: /\.scss$/
-        loader:  ExtractTextPlugin.extract "style-loader", "css-loader?sourceMap!postcss-loader!sass-loader?sourceMap" 
-          #"css"
-          #"postcss-loader"
-          #"sass"
-        #]
-        #loaders:[
-        #  "file?name=[name].css"
-        #  "extract"
-        #  "css?sourceMap" #FIXME sourceMap doesnt work
-        #  "postcss-loader"
-        #  "sass?sourceMap" #FIXME sourceMap doesnt work
-        #]
+        test: /\.woff2?(\?.+)?$/
+        loader: "url?limit=10000&mimetype=application/font-woff"
       }
-      fontawesome::loader
+      {
+        test: /\.ttf(\?.+)?$/
+        loader: "url?limit=10000&mimetype=application/octet-stream"
+      }
+      {
+        test: /\.svg(\?.+)?$/
+        loader: "url?limit=10000&mimetype=image/svg+xml"
+      }
+      {
+        test: /\.eot(\?.+)?$/
+        loader: "file"
+      }
     ]
   postcss: ->
     [
-      (require "autoprefixer")
+      autoprefixer
         browsers: ["> 5% in JP"]
     ]
-
   resolve:
-    extensions:["", ".coffee", ".js", ".css"]
-
+    extensions:["", ".coffee", ".js",".jade", ".css"]
   plugins:[
     new webpack.ProvidePlugin
-      Backbone: "backbone"
       $: "jquery"
       _: "underscore"
-    new ExtractTextPlugin "site.css"
+      Backbone: "backbone"
   ]
-
   devtool: "#source-map"
-  devServer:
-    contentBase: "./public"
-    host: "showtarow.local"
-    port: 3000
-    #port: 30000
-    #proxy:
-    #  "/*":
-    #    target: "http://showtarow.local:3000"

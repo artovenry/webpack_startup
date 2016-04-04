@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+//FIXME : for production
+@function image_url($path){
+  @return url("#{$path}");   
+}

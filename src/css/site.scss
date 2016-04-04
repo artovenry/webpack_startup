@@ -1,7 +1,8 @@
 @charset "utf-8";
 
-@import "variables";
+@import "var";
 @import "bsfa";
+@import "helpers";
 
 #transition{
   width: 5em;height: 5em;
@@ -14,5 +15,9 @@
 
 #gradation{
   width: 15em;height: 15em;
+}
 
+#cube{
+  width: 10em; height: 10em;
+  background: image_url("./site/test.png");
 }
