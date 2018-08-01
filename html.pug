@@ -3,8 +3,19 @@ html(lang="ja")
   head
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
-    link(rel="stylesheet" type="text/css" href="index.scss")
+    for item in htmlWebpackPlugin.files.css
+      link(rel="stylesheet" type="text/css" href=item)
   body
-    h1 hello
-    img#ocean(src="pacific_ocean.jpg")
-    script(src="index.coffee")
+    #vue
+      graphic
+
+
+
+
+
+
+
+
+
+    for item in htmlWebpackPlugin.files.js
+      script(src=item)

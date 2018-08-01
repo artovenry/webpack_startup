@@ -5,6 +5,7 @@ data=
   port    : env.npm_config_port ? "8080"
   staging : no
   optimized: no
+  extract_css: no
 switch process.env.NODE_ENV
   when "development"
     data.development= yes

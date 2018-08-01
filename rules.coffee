@@ -1,12 +1,13 @@
 _   = require "underscore"
 env = require "./env.coffee"
+MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 cssLoaders= (opts={vue: no, indented: no})->
   _.compact _.values
-    FILE:
-      loader: "file-loader?name=[hash:6].css"
-    EXTRACT:
-      loader: "extract-loader"
+    STYLE: if not env.extract_css
+      loader: if opts.vue then "vue-style-loader" else "style-loader"
+    EXTRACT: if env.extract_css
+      loader: MiniCssExtractPlugin.loader
     Css:
       loader: "css-loader"
       options:
@@ -39,8 +40,12 @@ module.exports=  _.values _.flatten _.compact
         sass   : cssLoaders(indented: yes, vue: yes)
         scss   : cssLoaders(indented: no, vue: yes)
 
+  HtmlPug:
+    test: /html\.pug$/, loader: "pug-loader"
+
   Pug:
     test: /\.pug$/
+    exclude: /html\.pug/
     use: _.compact _.flatten _.values
       FILE:
         loader: "file-loader", options: name: "[name].html"
